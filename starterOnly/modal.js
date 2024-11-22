@@ -16,6 +16,7 @@ const closeCross = document.querySelector(".close");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
+// close modal event
 closeCross.addEventListener("click", () => {
   closeModal();
 });
