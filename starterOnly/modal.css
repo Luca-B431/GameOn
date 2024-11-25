@@ -197,11 +197,17 @@ label {
   display: inline-block;
   margin-bottom: 11px;
 }
+
 input {
   padding: 8px;
   border: 0.8px solid #ccc;
   outline: none;
 }
+
+.fieldset {
+  border: none;
+}
+
 .text-control {
   margin: 0;
   padding: 8px;
@@ -210,6 +216,7 @@ input {
   font-size: 20px;
   height: 48px;
 }
+
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;
@@ -217,28 +224,41 @@ input {
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
+  text-align: left;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
 }
+
 .formData[data-error-visible="true"]::after {
   opacity: 1;
+  animation-name: squeeze;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
 }
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
+
+  animation-name: red-bg;
+  animation-duration: 0.8s;
+  animation-timing-function: ease;
 }
 
-.fieldset {
-  border: none;
+.formData[data-error-visible="true"] .cgu-control {
+  animation-name: squeeze;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
 }
 
-/* 
 input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+  content: attr(data-error);
+  font-size: 0.4em;
+  color: red;
+}
+input[data-error-visible="true"]::after {
+  opacity: 1;
+}
+
 .checkbox-label,
 .checkbox2-label {
   position: relative;
@@ -328,6 +348,14 @@ input[data-error]::after {
 .close:after {
   transform: rotate(-45deg);
 }
+
+.validation-message {
+  display: none;
+  align-self: center;
+  text-align: center;
+  padding: 340px 120px;
+}
+
 .btn-submit,
 .btn-signup {
   background: #fe142f;
@@ -531,5 +559,55 @@ footer {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes squeeze {
+  0% {
+    transform: translateY(7px);
+    color: red;
+  }
+  20% {
+    transform: translateX(7px);
+    color: red;
+  }
+  40% {
+    transform: translateX(-7px);
+    color: red;
+  }
+  60% {
+    transform: translateX(7px);
+    color: red;
+  }
+  80% {
+    transform: translateX(-7px);
+    color: red;
+  }
+  100% {
+    transform: translateX(7px);
+    color: red;
+  }
+}
+
+@keyframes red-bg {
+  0% {
+    background-color: #f5a1aa;
+    opacity: 90%;
+  }
+  25% {
+    background-color: #f5a1aa;
+    opacity: 80%;
+  }
+  50% {
+    background-color: #ffffff;
+    opacity: 70%;
+  }
+  75% {
+    background-color: #ffffff;
+    opacity: 80%;
+  }
+  100% {
+    background-color: #ffffff;
+    opacity: 90%;
   }
 }
