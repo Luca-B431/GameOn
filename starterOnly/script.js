@@ -103,7 +103,10 @@ baliseForm.addEventListener("submit", (event) => {
   if (!nameRegExp(userName)) {
     let parent = firstName.parentNode;
 
-    parent.setAttribute("data-error", "Ce champ est requis");
+    parent.setAttribute(
+      "data-error",
+      "Veuillez entrer 2 caractères ou plus pour le champ du nom."
+    );
     parent.setAttribute("data-error-visible", "true");
   } else {
     let parent = firstName.parentNode;
@@ -117,7 +120,10 @@ baliseForm.addEventListener("submit", (event) => {
   if (!nameRegExp(userLastName)) {
     let parent = lastName.parentNode;
 
-    parent.setAttribute("data-error", "Ce champ est requis");
+    parent.setAttribute(
+      "data-error",
+      "Veuillez entrer 2 caractères ou plus pour le champ du nom."
+    );
     parent.setAttribute("data-error-visible", "true");
   } else {
     let parent = lastName.parentNode;
@@ -130,7 +136,10 @@ baliseForm.addEventListener("submit", (event) => {
   if (!emailRegExp(userEmail)) {
     let parent = baliseMail.parentNode;
 
-    parent.setAttribute("data-error", "Ce champ est requis");
+    parent.setAttribute(
+      "data-error",
+      "Veuillez entrer une adresse e-mail valide."
+    );
     parent.setAttribute("data-error-visible", "true");
   } else {
     let parent = baliseMail.parentNode;
@@ -143,7 +152,10 @@ baliseForm.addEventListener("submit", (event) => {
   if (!isBirthdateFull()) {
     let parent = baliseBirthdate.parentNode;
 
-    parent.setAttribute("data-error", "Ce champ est requis");
+    parent.setAttribute(
+      "data-error",
+      "Vous devez entrer votre date de naissance."
+    );
     parent.setAttribute("data-error-visible", "true");
   } else {
     let parent = baliseBirthdate.parentNode;
@@ -156,14 +168,14 @@ baliseForm.addEventListener("submit", (event) => {
   if (!isTournamentFull()) {
     let parent = tournamentPariticipation.parentNode;
 
-    parent.setAttribute("data-error", "Ce champ est requis");
+    parent.setAttribute("data-error", "Vous devez choisir une option.");
     parent.setAttribute("data-error-visible", "true");
   } else {
     let parent = tournamentPariticipation.parentNode;
 
     parent.removeAttribute("data-error");
     parent.removeAttribute("data-error-visible");
-    memoUserData += `Tournois effectués : ${tournamentPariticipation.value} \n`;
+    memoUserData += `Tournois effectués auparavant : ${tournamentPariticipation.value} \n`;
   }
 
   // different way because of type NodeList
@@ -171,7 +183,7 @@ baliseForm.addEventListener("submit", (event) => {
     let loc1 = document.getElementById("location1");
     let parent = loc1.closest(".formData");
 
-    parent.setAttribute("data-error", "Ce champ est requis");
+    parent.setAttribute("data-error", "Vous devez choisir une option.");
     parent.setAttribute("data-error-visible", "true");
   } else {
     let loc1 = document.getElementById("location1");
@@ -194,7 +206,10 @@ baliseForm.addEventListener("submit", (event) => {
   if (!isCGUchecked()) {
     let parent = CGUcheckbox.parentNode;
 
-    parent.setAttribute("data-error", "Veuillez accepter les CGU.");
+    parent.setAttribute(
+      "data-error",
+      "Vous devez vérifier que vous acceptez les termes et conditions."
+    );
     parent.setAttribute("data-error-visible", "true");
   } else {
     let parent = CGUcheckbox.parentNode;
@@ -215,6 +230,7 @@ baliseForm.addEventListener("submit", (event) => {
     });
 
     btnSubmit.value = "Fermer";
+
     btnSubmit.addEventListener("click", () => closeModal());
     validMesssage.style.display = "block";
   }

@@ -10,15 +10,33 @@
 }
 /* Landing Page */
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 1500px;
   margin: 0;
   display: flex;
   flex-direction: column;
   background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
-  max-width: 1300px;
+  max-width: 1440px;
   margin: 0 auto;
+}
+
+main {
+  height: 657px;
+  font-size: 130%;
+  font-weight: bolder;
+  color: black;
+  padding-top: 0.5vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  margin: 1px 20px 15px;
+  border-radius: 2rem;
+  text-align: justify;
 }
 
 p {
@@ -31,15 +49,25 @@ img {
 }
 
 .topnav {
-  overflow: hidden;
   margin: 3.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .header-logo {
   float: left;
 }
+
+.logo {
+  height: 100%;
+  width: 100%;
+}
+
 .main-navbar {
   float: right;
 }
+
 .topnav a {
   float: left;
   display: block;
@@ -66,55 +94,6 @@ img {
 
 .topnav .icon {
   display: none;
-}
-
-@media screen and (max-width: 768px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .topnav.responsive {
-    position: relative;
-  }
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-}
-
-main {
-  font-size: 130%;
-  font-weight: bolder;
-  color: black;
-  padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  margin: 1px 20px 15px;
-  border-radius: 2rem;
-  text-align: justify;
 }
 
 .modal-btn {
@@ -439,36 +418,41 @@ input[data-error-visible="true"]::after {
   font-weight: normal;
   font-size: 16px;
 }
+
 .hero-section {
-  min-height: 93vh;
+  height: 100%;
+  max-height: 657px;
   border-radius: 10px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  display: flex;
   overflow: hidden;
   box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
 }
+
 .hero-content {
   padding: 51px 67px;
-  grid-column: span 4;
   background: #232323;
   color: #fff;
   position: relative;
   text-align: left;
-  min-width: 424px;
+  width: 100%;
+  height: 100%;
 }
+
 .hero-content::after {
   content: "";
-  width: 100%;
+  width: 0%;
   height: 100%;
   background: #232323;
   position: absolute;
   right: -80px;
   top: 0;
 }
+
 .hero-content > * {
   position: relative;
   z-index: 1;
+  max-width: 400px;
 }
 .hero-headline {
   font-size: 6rem;
@@ -476,7 +460,7 @@ input[data-error-visible="true"]::after {
   white-space: nowrap;
 }
 .hero-text {
-  width: 146%;
+  width: 100%;
   font-weight: normal;
   margin-top: 57px;
   padding: 0;
@@ -490,10 +474,10 @@ input[data-error-visible="true"]::after {
   margin-top: 59px;
 }
 .hero-img {
-  grid-column: span 8;
+  width: 100%;
 }
 .hero-img img {
-  width: 100%;
+  min-width: 100%;
   height: 100%;
   display: block;
   padding: 0;
@@ -513,12 +497,67 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
-  .hero-section {
-    display: block;
-    box-shadow: unset;
+
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 90%;
+    height: 90%;
   }
+
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+
+  .modal-body {
+    margin: 15px auto;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  main {
+    height: 100%;
+  }
+
+  .logo {
+    margin-left: 2vw;
+  }
+
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    box-shadow: unset;
+    overflow: visible;
+  }
+
+  .hero-section button {
+    display: none;
+  }
+
   .hero-content {
+    height: 40%;
     background: #fff;
     color: #000;
     padding: 20px;
@@ -526,25 +565,34 @@ footer {
   .hero-content::after {
     content: unset;
   }
-  .hero-content .btn-signup {
-    display: none;
-  }
+
   .hero-headline {
-    font-size: 4.5rem;
+    width: 100%;
+    font-size: 3.5rem;
     white-space: normal;
   }
   .hero-text {
     width: unset;
     font-size: 1.5rem;
   }
+
+  .hero-img {
+    min-height: 800px;
+    object-fit: cover;
+  }
+
   .hero-img img {
+    width: 100%;
     border-radius: 10px;
-    margin-top: 40px;
+    margin-top: 20px;
+    object-fit: cover;
   }
   .hero-section > .btn-signup {
     display: block;
-    margin: 32px auto 10px;
-    padding: 12px 35px;
+    width: 141px;
+    height: 31px;
+    padding: 5px;
+    align-self: center;
   }
   .copyrights {
     margin-top: 50px;
