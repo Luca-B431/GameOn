@@ -10,6 +10,9 @@ function editNav() {
   } else {
     x.className = "topnav";
     burger.classList.add("fa", "fa-bars");
+    burger.textContent = "";
+    burger.style.fontFamily = "";
+    burger.style.fontSize = "";
   }
 }
 
