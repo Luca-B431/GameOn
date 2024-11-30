@@ -76,12 +76,12 @@ function isCGUchecked() {
 // successfull test for form valdiation
 function allTestSuccessfull(name, lastname, email) {
   return (
-    nameRegExp(name),
-    nameRegExp(lastname),
-    emailRegExp(email),
-    isBirthdateFull(),
-    isTournamentFull(),
-    isLocationValid(),
+    nameRegExp(name) &&
+    nameRegExp(lastname) &&
+    emailRegExp(email) &&
+    isBirthdateFull() &&
+    isTournamentFull() &&
+    isLocationValid() &&
     isCGUchecked()
   );
 }
