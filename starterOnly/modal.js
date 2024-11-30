@@ -1,9 +1,15 @@
 function editNav() {
   var x = document.getElementById("myTopnav");
+  var burger = document.getElementById("burger");
   if (x.className === "topnav") {
     x.className += " responsive";
+    burger.classList.remove("fa", "fa-bars");
+    burger.textContent = "Fermer";
+    burger.style.fontFamily = "Arial";
+    burger.style.fontSize = "18px";
   } else {
     x.className = "topnav";
+    burger.classList.add("fa", "fa-bars");
   }
 }
 
