@@ -15,7 +15,6 @@ html {
 }
 
 body {
-  height: 1500px;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -66,6 +65,16 @@ img {
 
 .main-navbar {
   float: right;
+}
+
+.topnav.responsive .main-navbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  box-shadow: -3px 4px 7px 2px #00000040;
+  background: white;
+  border-radius: 18px;
 }
 
 .topnav a {
@@ -577,7 +586,6 @@ footer {
   }
 
   .hero-img {
-    min-height: 800px;
     object-fit: cover;
   }
 
