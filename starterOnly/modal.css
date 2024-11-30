@@ -116,6 +116,11 @@ img {
   border-radius: 1rem;
   cursor: pointer;
 }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
 .modal-btn:hover {
   background: #3876ac;
