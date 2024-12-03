@@ -116,6 +116,7 @@ img {
   border-radius: 1rem;
   cursor: pointer;
 }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -360,6 +361,10 @@ input[data-error-visible="true"]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+
+#btn-fermer {
+  display: none;
 }
 /* custom select styles */
 .custom-select {

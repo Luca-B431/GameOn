@@ -10,7 +10,21 @@ const tournamentPariticipation = document.getElementById("quantity");
 const tournamentLocation = document.querySelectorAll(
   "#location-container input"
 );
+const firstLocation = document.getElementById("location1");
 const CGUcheckbox = document.getElementById("checkbox1");
+const allFormData = document.querySelectorAll("form .formData");
+const btnSubmit = document.getElementById("btn-submit");
+const btnFermer = document.getElementById("btn-fermer");
+const validMesssage = document.getElementById("valid-message");
+
+// parent element
+const nameParent = firstName.parentNode;
+const lastnameParent = lastName.parentNode;
+const emailParent = baliseMail.parentNode;
+const birthdateParent = baliseBirthdate.parentNode;
+const tournamentNumberParent = tournamentPariticipation.parentNode;
+const locationParent = firstLocation.closest(".formData");
+const CGUParent = CGUcheckbox.parentNode;
 
 // array of each individual input
 const inputArray = [
@@ -37,7 +51,7 @@ function nameRegExp(name) {
 // email regex test function
 function emailRegExp(email) {
   let regex =
-    /^[a-zA-Z0-9_-àéèêôùÀÉÈÊÔÙ]+([a-zA-Z0-9_-]*[a-zA-Z0-9_-]+)*@[a-zA-Z0-9_-]+\.[a-zA-Z0-9]{2,}$/;
+    /^[a-zA-Z0-9_.-àéèêôùÀÉÈÊÔÙ]+([a-zA-Z0-9_.-]*[a-zA-Z0-9_-]+)*@[a-zA-Z0-9_-]+\.[a-zA-Z0-9]{2,}$/;
 
   let regexMailValidation = regex.test(email);
 
@@ -46,15 +60,23 @@ function emailRegExp(email) {
 
 // birthdate empty test function
 function isBirthdateFull() {
-  let date = baliseBirthdate.value.trim();
-  return date.length > 0;
+  let mindate = new Date();
+  let maxdate = new Date();
+
+  const userInput = new Date(baliseBirthdate.value);
+
+  mindate.setFullYear(mindate.getFullYear() - 18);
+  maxdate.setFullYear(maxdate.getFullYear() - 99);
+
+  return userInput <= mindate && userInput >= maxdate;
 }
 
 // tournament required test function
 function isTournamentFull() {
-  let tournament = tournamentPariticipation.value.trim();
-
-  return tournament > 0;
+  return (
+    tournamentPariticipation.value.length > 0 &&
+    Number(tournamentPariticipation.value) >= 0
+  );
 }
 
 // location input check test function
@@ -68,9 +90,7 @@ function isLocationValid() {
 
 // CGU input check test function
 function isCGUchecked() {
-  let CGU = CGUcheckbox.checked;
-
-  return CGU;
+  return CGUcheckbox.checked;
 }
 
 // successfull test for form valdiation
@@ -86,109 +106,91 @@ function allTestSuccessfull(name, lastname, email) {
   );
 }
 
+function setAttribute(parent, value) {
+  parent.setAttribute("data-error", value);
+  parent.setAttribute("data-error-visible", "true");
+}
+
+function removeAttribute(parent) {
+  let attributeArray = ["data-error", "data-error-visible"];
+
+  attributeArray.forEach((attribute) => {
+    parent.removeAttribute(attribute);
+  });
+}
+
+function cleanModal() {
+  closeModal();
+  baliseForm.reset();
+
+  allFormData.forEach((element) => {
+    element.style.display = "block";
+  });
+
+  validMesssage.style.display = "none";
+  btnSubmit.value = "C'est parti !";
+}
+
 // FROM SUBMIT EVENT FUNCTION
 
 baliseForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  // local variables
-  let userName = firstName.value.trim();
-  let userLastName = lastName.value.trim();
-  let userEmail = baliseMail.value.trim();
   // memoUserData variable save user data in console
   let memoUserData = "Voici les données utilisateur : \n \n";
 
   // regex rules condition are not respected then display the error messages
   // otherwise remove them if they are already present
-  if (!nameRegExp(userName)) {
-    let parent = firstName.parentNode;
-
-    parent.setAttribute(
-      "data-error",
-      "Veuillez entrer 2 caractères ou plus pour le champ du nom."
-    );
-    parent.setAttribute("data-error-visible", "true");
+  if (nameRegExp(firstName.value.trim())) {
+    removeAttribute(nameParent);
+    memoUserData += `Prénom : ${firstName.value} \n`;
   } else {
-    let parent = firstName.parentNode;
+    let value = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
-    memoUserData += `Prénom : ${userName} \n`;
+    setAttribute(nameParent, value);
+  }
+
+  if (nameRegExp(lastName.value.trim())) {
+    removeAttribute(lastnameParent);
+    memoUserData += `Nom : ${lastName.value} \n`;
+  } else {
+    let value = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+
+    setAttribute(lastnameParent, value);
   }
 
   // same condition but with mail regex rules
-  if (!nameRegExp(userLastName)) {
-    let parent = lastName.parentNode;
-
-    parent.setAttribute(
-      "data-error",
-      "Veuillez entrer 2 caractères ou plus pour le champ du nom."
-    );
-    parent.setAttribute("data-error-visible", "true");
+  if (emailRegExp(baliseMail.value.trim())) {
+    removeAttribute(emailParent);
+    memoUserData += `E-mail : ${baliseMail.value} \n`;
   } else {
-    let parent = lastName.parentNode;
+    let value = "Veuillez entrer une adresse mail valide.";
 
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
-    memoUserData += `Nom : ${userLastName} \n`;
+    setAttribute(emailParent, value);
   }
 
-  if (!emailRegExp(userEmail)) {
-    let parent = baliseMail.parentNode;
-
-    parent.setAttribute(
-      "data-error",
-      "Veuillez entrer une adresse e-mail valide."
-    );
-    parent.setAttribute("data-error-visible", "true");
-  } else {
-    let parent = baliseMail.parentNode;
-
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
-    memoUserData += `E-mail : ${userEmail} \n`;
-  }
-
-  if (!isBirthdateFull()) {
-    let parent = baliseBirthdate.parentNode;
-
-    parent.setAttribute(
-      "data-error",
-      "Vous devez entrer votre date de naissance."
-    );
-    parent.setAttribute("data-error-visible", "true");
-  } else {
-    let parent = baliseBirthdate.parentNode;
-
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
+  if (isBirthdateFull()) {
+    removeAttribute(birthdateParent);
     memoUserData += `Date de naissance : ${baliseBirthdate.value} \n`;
+  } else {
+    let value = "Vous devez entrer votre date de naissance.";
+
+    setAttribute(birthdateParent, value);
   }
 
-  if (!isTournamentFull()) {
-    let parent = tournamentPariticipation.parentNode;
+  if (isTournamentFull()) {
+    removeAttribute(tournamentNumberParent);
 
-    parent.setAttribute("data-error", "Vous devez choisir une option.");
-    parent.setAttribute("data-error-visible", "true");
+    memoUserData += `Nombre de tournoi(s) effectué(s) : ${tournamentPariticipation.value} \n`;
   } else {
-    let parent = tournamentPariticipation.parentNode;
+    let value = "Veuillez entrer un chiffre.";
 
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
-    memoUserData += `Tournois effectués auparavant : ${tournamentPariticipation.value} \n`;
+    setAttribute(tournamentNumberParent, value);
   }
 
   // different way because of type NodeList
-  if (!isLocationValid()) {
-    let loc1 = document.getElementById("location1");
-    let parent = loc1.closest(".formData");
-
-    parent.setAttribute("data-error", "Vous devez choisir une option.");
-    parent.setAttribute("data-error-visible", "true");
-  } else {
-    let loc1 = document.getElementById("location1");
-    let parent = loc1.closest(".formData");
-    let userLocationChoice;
+  if (isLocationValid()) {
+    removeAttribute(locationParent);
 
     // if there is a checked input in the nodeList
     // then put the input value in userLocationChoice for form memo
@@ -198,40 +200,54 @@ baliseForm.addEventListener("submit", (event) => {
       }
     });
 
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
     memoUserData += `Lieu d'inscription : ${userLocationChoice} \n`;
-  }
-
-  if (!isCGUchecked()) {
-    let parent = CGUcheckbox.parentNode;
-
-    parent.setAttribute(
-      "data-error",
-      "Vous devez vérifier que vous acceptez les termes et conditions."
-    );
-    parent.setAttribute("data-error-visible", "true");
   } else {
-    let parent = CGUcheckbox.parentNode;
+    let value = "Veuillez choisir une option.";
 
-    parent.removeAttribute("data-error");
-    parent.removeAttribute("data-error-visible");
-    memoUserData += `Conditions Générales d'Utilisation acceptées. \n`;
+    setAttribute(locationParent, value);
   }
 
-  if (allTestSuccessfull(userName, userLastName, userEmail)) {
-    let allFormData = document.querySelectorAll("form .formData");
-    let btnSubmit = document.getElementById("btn-submit");
-    let validMesssage = document.getElementById("valid-message");
+  if (isCGUchecked()) {
+    removeAttribute(CGUParent);
+    memoUserData += `Conditions Générales d'Utilisation acceptées. \n`;
+  } else {
+    let value =
+      "Vous devez vérifier que vous acceptez les termes et conditions.";
 
+    setAttribute(CGUParent, value);
+  }
+
+  if (
+    allTestSuccessfull(
+      firstName.value.trim(),
+      lastName.value.trim(),
+      baliseMail.value.trim()
+    )
+  ) {
     console.log(memoUserData);
+
     allFormData.forEach((element) => {
       element.style.display = "none";
     });
 
-    btnSubmit.value = "Fermer";
-
-    btnSubmit.addEventListener("click", () => closeModal());
+    btnFermer.style.display = "block";
+    btnSubmit.style.display = "none";
     validMesssage.style.display = "block";
+
+    const listener = () => {
+      cleanModal();
+      btnFermer.style.display = " none";
+      btnSubmit.style.display = "block";
+      removeAttribute(nameParent);
+      removeAttribute(lastnameParent);
+      removeAttribute(emailParent);
+      removeAttribute(birthdateParent);
+      removeAttribute(tournamentNumberParent);
+      removeAttribute(locationParent);
+      removeAttribute(CGUParent);
+    };
+
+    btnFermer.addEventListener("click", listener);
+    closeCross.addEventListener("click", listener);
   }
 });

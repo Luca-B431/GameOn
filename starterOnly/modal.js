@@ -1,3 +1,5 @@
+const buttonNav = document.getElementById("burger-icon");
+
 function editNav() {
   var x = document.getElementById("myTopnav");
   var burger = document.getElementById("burger");
@@ -15,6 +17,8 @@ function editNav() {
     burger.style.fontSize = "";
   }
 }
+
+buttonNav.addEventListener("click", () => editNav());
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");

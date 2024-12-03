@@ -13,6 +13,7 @@
       href="https://fonts.googleapis.com/css?family=DM+Sans"
       rel="stylesheet"
     />
+    <script src="modal.js" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -25,7 +26,7 @@
         <a href="#"><span>À propos</span></a>
         <a href="#"><span>Contact</span></a>
         <a href="#"><span>Évènements passés</span></a>
-        <a href="javascript:void(0);" class="icon" onclick="editNav()">
+        <a id="burger-icon" class="icon" type="button">
           <i id="burger" class="fa fa-bars"></i>
         </a>
       </div>
@@ -67,7 +68,6 @@
                   type="text"
                   id="first"
                   name="first"
-                  required
                 /><br />
               </div>
               <div class="formData">
@@ -95,7 +95,6 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  required
                 /><br />
               </div>
               <div class="formData">
@@ -216,6 +215,7 @@
                 class="button btn-submit"
                 value="C'est parti"
               />
+              <p id="btn-fermer" class="button btn-submit">Fermer</p>
             </form>
           </div>
         </div>
@@ -227,6 +227,5 @@
     <footer>
       <p class="copyrights">Copyright 2014 - 2022, GameOn Inc.</p>
     </footer>
-    <script src="modal.js"></script>
   </body>
 </html>
